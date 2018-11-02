@@ -1,9 +1,9 @@
 import logging
 import random
-from queue import Queue
-from threading import Thread
-from telegram import Bot, InlineKeyboardButton, InlineKeyboardMarkup, ParseMode
-from telegram.ext import Dispatcher, CommandHandler, MessageHandler, Updater, Filters, CallbackQueryHandler
+#from queue import Queue
+#from threading import Thread
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode
+from telegram.ext import CommandHandler, MessageHandler, Updater, Filters, CallbackQueryHandler
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
@@ -39,7 +39,7 @@ def button(bot, update):
                         message_id=query.message.message_id)
 
 
-class arr:
+"""class arr:
 
     def __init__(self, num, random_num=random.randint(1, 100)):
         self.random_num = random_num
@@ -63,17 +63,17 @@ def guessing(bot, update):
     input_num = int(update.message.text)
     object_num = arr()
     object_num.checking(input_num)
-
+"""
 
 """def echo(bot, update):
     update.message.reply_text('You said:  ' + update.message.text)
 """
 
-"""def dolintenge(bot, update, args):
+def dolintenge(bot, update, args):
     dollars = int(args)
     tenge = dollars * 356
     update.message.reply_text(text=tenge)
-"""
+
 
 
 def error(bot, update, error):
@@ -81,45 +81,43 @@ def error(bot, update, error):
     logger.warning('Update "%s" caused error "%s"' % (update, error))
 
 
-# Write your handlers here
 
-
-def setup(webhook_url=None):
-    """If webhook_url is not passed, run with long-polling."""
+def main():
+    """If webhook_url is not passed, run with long-polling.
     logging.basicConfig(level=logging.WARNING)
     if webhook_url:
         bot = Bot(TOKEN)
         update_queue = Queue()
         dp = Dispatcher(bot, update_queue)
-    else:
-        updater = Updater(TOKEN)  # Create the EventHandler and pass it your bot's token.
-        bot = updater.bot
-        dp = updater.dispatcher  # Get the dispatcher to register handlers
-        dp.add_handler(CommandHandler("start", start))  # on /start command answer in Telegram
-        dp.add_handler(CommandHandler("help", help))  # on /help command answer in Telegram
-        """dp.add_handler(CommandHandler("dolintenge", dolintenge))"""
-        dp.add_handler(CallbackQueryHandler(button))
+    else:"""
+    updater = Updater(TOKEN)  # Create the EventHandler and pass it your bot's token.
+    bot = updater.bot
+    dp = updater.dispatcher  # Get the dispatcher to register handlers
+    dp.add_handler(CommandHandler("start", start))  # on /start command answer in Telegram
+    dp.add_handler(CommandHandler("help", help))  # on /help command answer in Telegram
+    dp.add_handler(CommandHandler("dolintenge", dolintenge))
+    dp.add_handler(CallbackQueryHandler(button))
 
-        # on noncommand i.e message - echo the message on Telegram
-        """dp.add_handler(MessageHandler(Filters.text, echo))"""
-        dp.add_handler(MessageHandler(Filters.text, guessing))
+    # on noncommand i.e message - echo the message on Telegram
+    """dp.add_handler(MessageHandler(Filters.text, echo))"""
+    # dp.add_handler(MessageHandler(Filters.text, guessing))
 
-        # log all errors
-        dp.add_error_handler(error)
-    # Add your handlers here
-    if webhook_url:
+    # log all errors
+    dp.add_error_handler(error)
+
+    """if webhook_url:
         bot.set_webhook(webhook_url=webhook_url)
         thread = Thread(target=dp.start, name='dispatcher')
         thread.start()
         return update_queue, bot
-    else:
-        bot.set_webhook()  # Delete webhook
-        updater.start_polling()  # Start the Bot
-        """Run the bot until you press Ctrl-C or the process receives SIGINT,
-        SIGTERM or SIGABRT. This should be used most of the time, since
-        start_polling() is non-blocking and will stop the bot gracefully."""
-        updater.idle()
+    else:"""
+    bot.set_webhook()  # Delete webhook
+    updater.start_polling()  # Start the Bot
+    """Run the bot until you press Ctrl-C or the process receives SIGINT,
+    SIGTERM or SIGABRT. This should be used most of the time, since
+    start_polling() is non-blocking and will stop the bot gracefully."""
+    updater.idle()
 
 
 if __name__ == '__main__':
-    setup()
+    main()
