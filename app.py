@@ -67,17 +67,18 @@ def guessing(bot, update):
     object_num.checking(input_num)
 """
 
-"""def echo(bot, update):
+def echo(bot, update):
     update.message.reply_text('You said:  ' + update.message.text)
-"""
+
 
 def convert(bot, update, args):
     try:
         #dollars = int(update.message.text)
-        tenge = int(args) * 373
+        dollars = int(args)
+        tenge = dollars * 373
     except (NameError, SyntaxError, ValueError):
         tenge = "Введите целое число"
-    bot.send_message(chat_id=update.message.chat_id, text=tenge)
+    bot.send_message(chat_id=update.message.chat_id, text=dollars)
 
 
 def error(bot, update, error):
@@ -103,7 +104,7 @@ def main():
     dp.add_handler(CallbackQueryHandler(button))
 
     # Для ответа бота на текстовые (не командные) сообщения.
-    """dp.add_handler(MessageHandler(Filters.text, echo))""" # Бот отвечает тем сообщением, которое вы ему написали (эхо-бот)
+    dp.add_handler(MessageHandler(Filters.text, echo)) # Бот отвечает тем сообщением, которое вы ему написали (эхо-бот)
     # dp.add_handler(MessageHandler(Filters.text, guessing))
 
     # Запись всех ошибок
