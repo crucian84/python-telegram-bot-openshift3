@@ -104,7 +104,7 @@ def main():
     dp.add_handler(CallbackQueryHandler(button))
 
     # Для ответа бота на текстовые (не командные) сообщения.
-    dp.add_handler(MessageHandler(Filters.text, echo)) # Бот отвечает тем сообщением, которое вы ему написали (эхо-бот)
+    dp.add_handler(MessageHandler(Filters.text, echo))  # Бот отвечает тем сообщением, которое вы ему написали (эхо-бот)
     # dp.add_handler(MessageHandler(Filters.text, guessing))
 
     # Запись всех ошибок
@@ -116,7 +116,7 @@ def main():
         thread.start()
         return update_queue, bot
     else:
-    bot.set_webhook()  # Delete webhook"""
+        bot.set_webhook()  # Delete webhook"""
     updater.start_polling()  # Start the Bot
     """Бот будет работать до тех пор пока вы не нажмете Ctrl-C
      или процесс не получит SIGINT, SIGTERM или SIGABRT. 
