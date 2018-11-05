@@ -68,12 +68,12 @@ def guessing(bot, update):
 """
 
 def convert(bot, update, args):
-    try:
+    #try:
         #dollars = int(update.message.text)
-        dollars = args
-        tenge = int(dollars) + "373"
-    except (NameError, SyntaxError, ValueError):
-        tenge = "Введите целое число"
+        #dollars = args
+    tenge = int(args) * 373
+    #except (NameError, SyntaxError, ValueError):
+    #    tenge = "Введите целое число"
     bot.send_message(chat_id=update.message.chat_id, text=tenge)
 
 
