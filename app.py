@@ -71,11 +71,13 @@ def guessing(bot, update):
     update.message.reply_text('You said:  ' + update.message.text)
 """
 
-def dolintenge(bot, update):
-    dollars = int(update.message.text)
-    tenge = dollars * 356
-    update.message.reply_text(text=tenge)
-
+def dolintenge(bot, update, args):
+    try:
+        #dollars = int(update.message.text)
+        tenge = args * 356
+    except (NameError, SyntaxError, ValueError):
+        tenge = "Введите целое число"
+    bot.send_message(text=tenge)
 
 
 def error(bot, update, error):
@@ -97,7 +99,7 @@ def main():
     dp = updater.dispatcher  # Объявление диспетчера, чтобы потом зарегистрировать handlers (обработчики)
     dp.add_handler(CommandHandler("start", start))  # Отвечает на команду /start в Телеграм
     dp.add_handler(CommandHandler("help", help))  # Отвечает на команду /help в Телеграм
-    dp.add_handler(CommandHandler("dolintenge", dolintenge))
+    dp.add_handler(CommandHandler("dolintenge", dolintenge, pass_args=True))
     dp.add_handler(CallbackQueryHandler(button))
 
     # Для ответа бота на текстовые (не командные) сообщения.
