@@ -70,11 +70,11 @@ def guessing(bot, update):
 def convert(bot, update, args):
     try:
         #dollars = int(update.message.text)
-        dollars = int(args)
-        #tenge = dollars * 373
+        dollars = args
+        tenge = dollars * 373
     except (NameError, SyntaxError, ValueError):
-        dollars = "Введите целое число"
-    bot.send_message(chat_id=update.message.chat_id, text=dollars)
+        tenge = "Введите целое число"
+    bot.send_message(chat_id=update.message.chat_id, text=tenge)
 
 
 #def echo(bot, update):
