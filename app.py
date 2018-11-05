@@ -22,7 +22,7 @@ def start(bot, update):
 def help(bot, update):
     """Вывести сообщение, когда отправлена команда /start.
     Это может быть сообщение о том, что ваш бот может делать и список команд"""
-    # update.message.reply_text('You can get any help here.')
+    update.message.reply_text('You can get any help here.')
 
     keyboardButtons = [[InlineKeyboardButton("Помощь", callback_data="1")],
                        [InlineKeyboardButton("Примеры", callback_data="2")],
@@ -34,7 +34,7 @@ def help(bot, update):
 def button(bot, update):
     query = update.callback_query
     if query.data == "1":
-        text = "You can choose any of the following actions: +, -, /, *"
+        text = "Вы можете использовать какое-либо из данных действий: +, -, /, *"
     elif query.data == "2":
         text = "3+4, 44-12, 43/2, 12*90"
     bot.editMessageText(text=text, chat_id=query.message.chat_id,
@@ -68,16 +68,16 @@ def guessing(bot, update):
 """
 
 def echo(bot, update):
-    update.message.reply_text('You said:  ' + update.message.text)
+    update.message.reply_text('Вы ввели:  ' + update.message.text)
 
 
 def convert(bot, update, args):
     try:
         #dollars = int(update.message.text)
         dollars = int(args)
-        tenge = dollars * 373
+        #tenge = dollars * 373
     except (NameError, SyntaxError, ValueError):
-        tenge = "Введите целое число"
+        dollars = "Введите целое число"
     bot.send_message(chat_id=update.message.chat_id, text=dollars)
 
 
