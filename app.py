@@ -12,14 +12,16 @@ TOKEN = '693266929:AAHv5cYEQmTI0kkClSWNK-CtRr7oqrXp3mI'
 
 
 def start(bot, update):
-    """Send a message when the command /start is issued."""
+    """Вывести сообщение, когда отправлена команда /start.
+    Обычно это приветственное сообщение"""
     """update.message.reply_text('Welcome to the Test Bot! I will reply you what you will write me.')"""
     bot.send_message(chat_id=update.message.chat_id,
                      text='<b>KAZGUU site</b>,<a href="http://kazguu.kz/ru/">KAZGUU</a>', parse_mode=ParseMode.HTML)
 
 
 def help(bot, update):
-    """Send a message when the command /help is issued."""
+    """Вывести сообщение, когда отправлена команда /start.
+    Это может быть сообщение о том, что ваш бот может делать и список команд"""
     # update.message.reply_text('You can get any help here.')
 
     keyboardButtons = [[InlineKeyboardButton("Помощь", callback_data="1")],
@@ -69,15 +71,15 @@ def guessing(bot, update):
     update.message.reply_text('You said:  ' + update.message.text)
 """
 
-def dolintenge(bot, update, args):
-    dollars = int(args)
+def dolintenge(bot, update):
+    dollars = int(update.message.text)
     tenge = dollars * 356
     update.message.reply_text(text=tenge)
 
 
 
 def error(bot, update, error):
-    """Log Errors caused by Updates."""
+    """Запись всех ошибок вызванных Updates."""
     logger.warning('Update "%s" caused error "%s"' % (update, error))
 
 
@@ -90,19 +92,19 @@ def main():
         update_queue = Queue()
         dp = Dispatcher(bot, update_queue)
     else:"""
-    updater = Updater(TOKEN)  # Create the EventHandler and pass it your bot's token.
-    bot = updater.bot
-    dp = updater.dispatcher  # Get the dispatcher to register handlers
-    dp.add_handler(CommandHandler("start", start))  # on /start command answer in Telegram
-    dp.add_handler(CommandHandler("help", help))  # on /help command answer in Telegram
+    updater = Updater(TOKEN)  # Создаем EventHandler (обработчик событий) и передаем ему токен (ключ) бота.
+    #bot = updater.bot
+    dp = updater.dispatcher  # Объявление диспетчера, чтобы потом зарегистрировать handlers (обработчики)
+    dp.add_handler(CommandHandler("start", start))  # Отвечает на команду /start в Телеграм
+    dp.add_handler(CommandHandler("help", help))  # Отвечает на команду /help в Телеграм
     dp.add_handler(CommandHandler("dolintenge", dolintenge))
     dp.add_handler(CallbackQueryHandler(button))
 
-    # on noncommand i.e message - echo the message on Telegram
-    """dp.add_handler(MessageHandler(Filters.text, echo))"""
+    # Для ответа бота на текстовые (не командные) сообщения.
+    """dp.add_handler(MessageHandler(Filters.text, echo))""" # Бот отвечает тем сообщением, которое вы ему написали (эхо-бот)
     # dp.add_handler(MessageHandler(Filters.text, guessing))
 
-    # log all errors
+    # Запись всех ошибок
     dp.add_error_handler(error)
 
     """if webhook_url:
@@ -110,12 +112,13 @@ def main():
         thread = Thread(target=dp.start, name='dispatcher')
         thread.start()
         return update_queue, bot
-    else:"""
-    bot.set_webhook()  # Delete webhook
+    else:
+    bot.set_webhook()  # Delete webhook"""
     updater.start_polling()  # Start the Bot
-    """Run the bot until you press Ctrl-C or the process receives SIGINT,
-    SIGTERM or SIGABRT. This should be used most of the time, since
-    start_polling() is non-blocking and will stop the bot gracefully."""
+    """Бот будет работать до тех пор пока вы не нажмете Ctrl-C
+     или процесс не получит SIGINT, SIGTERM или SIGABRT. 
+     Этот способ должен использоваться в большинстве случаев т.к. start_polling()
+      не блокирующий и остановит бота правильно."""
     updater.idle()
 
 
