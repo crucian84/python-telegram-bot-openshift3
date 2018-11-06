@@ -68,13 +68,13 @@ def guessing(bot, update):
 """
 
 def convert(bot, update, args):
-    #try:
+    try:
         #dollars = int(update.message.text)
-        #dollars = args
-    tenge = int(args[0])
-    #except (SyntaxError, ValueError):
-    #    tenge = "Введите целое число"
-    update.message.reply_text(text=tenge)
+        dollars = int(args[0])
+        tenge = dollars * 373
+    except (SyntaxError, ValueError):
+        tenge = "Введите целое число"
+    bot.send_message(text=tenge)
 
 
 #def echo(bot, update):
