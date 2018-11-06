@@ -74,7 +74,7 @@ def convert(bot, update, args):
         tenge = dollars * 373
     except (SyntaxError, ValueError):
         tenge = "Введите целое число"
-    bot.send_message(text=tenge)
+    bot.send_message(chat_id=update.message.chat_id, text=tenge)
 
 
 #def echo(bot, update):
