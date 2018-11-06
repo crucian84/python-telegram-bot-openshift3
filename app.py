@@ -71,7 +71,7 @@ def convert(bot, update, args):
     #try:
         #dollars = int(update.message.text)
         #dollars = args
-    tenge = int('10') * 373
+    tenge = type(args)
     #except (NameError, SyntaxError, ValueError):
     #    tenge = "Введите целое число"
     bot.send_message(chat_id=update.message.chat_id, text=tenge)
