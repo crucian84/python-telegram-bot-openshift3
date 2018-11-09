@@ -16,7 +16,7 @@ def start(bot, update):
     Обычно это приветственное сообщение"""
     """update.message.reply_text('Welcome to the Test Bot! I will reply you what you will write me.')"""
     bot.send_message(chat_id=update.message.chat_id,
-                     text='<b>KAZGUU site</b>,<a href="http://kazguu.kz/ru/">KAZGUU</a>', parse_mode=ParseMode.HTML)
+                     text='<b>привет</b>,<a href="http://kazguu.kz/ru/">KAZGUU</a>', parse_mode=ParseMode.HTML)
 
 
 def help(bot, update):
@@ -41,7 +41,7 @@ def button(bot, update):
                         message_id=query.message.message_id)
 
 
-"""class arr:
+class arr:
 
     def __init__(self, num, random_num=random.randint(1, 100)):
         self.random_num = random_num
@@ -61,15 +61,15 @@ def button(bot, update):
         bot.send_message(chat_id=update.message.chat_id, text=ar)
 
 
-def guessing(bot, update):
-    input_num = int(update.message.text)
+def guessing(bot, update, args):
+    #input_num = int(update.message.text)
+    input_num = int(args[0])
     object_num = arr()
     object_num.checking(input_num)
-"""
+
 
 def convert(bot, update, args):
     try:
-        #dollars = int(update.message.text)
         dollars = int(args[0])
         tenge = dollars * 373
     except (SyntaxError, ValueError):
@@ -86,15 +86,7 @@ def error(bot, update, error):
     logger.warning('Update "%s" caused error "%s"' % (update, error))
 
 
-
 def main():
-    """If webhook_url is not passed, run with long-polling.
-    logging.basicConfig(level=logging.WARNING)
-    if webhook_url:
-        bot = Bot(TOKEN)
-        update_queue = Queue()
-        dp = Dispatcher(bot, update_queue)
-    else:"""
     updater = Updater(TOKEN)  # Создаем EventHandler (обработчик событий) и передаем ему токен (ключ) бота.
     #bot = updater.bot
     dp = updater.dispatcher  # Объявление диспетчера, чтобы потом зарегистрировать handlers (обработчики)
@@ -102,6 +94,7 @@ def main():
     dp.add_handler(CommandHandler("help", help))  # Отвечает на команду /help в Телеграм
     dp.add_handler(CommandHandler("convert", convert, pass_args=True))
     dp.add_handler(CallbackQueryHandler(button))
+    dp.add_handler(CommandHandler("guessing", guessing, pass_args=True))
 
     # Для ответа бота на текстовые (не командные) сообщения.
     #dp.add_handler(MessageHandler(Filters.text, echo))  # Бот отвечает тем сообщением, которое вы ему написали (эхо-бот)
@@ -110,13 +103,6 @@ def main():
     # Запись всех ошибок
     dp.add_error_handler(error)
 
-    """if webhook_url:
-        bot.set_webhook(webhook_url=webhook_url)
-        thread = Thread(target=dp.start, name='dispatcher')
-        thread.start()
-        return update_queue, bot
-    else:
-        bot.set_webhook()  # Delete webhook"""
     updater.start_polling()  # Start the Bot
     """Бот будет работать до тех пор пока вы не нажмете Ctrl-C
      или процесс не получит SIGINT, SIGTERM или SIGABRT. 
