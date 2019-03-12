@@ -41,7 +41,7 @@ def button(bot, update):
                         message_id=query.message.message_id)
 
 
-class arr:
+"""class arr:
 
     def __init__(self, num, random_num=random.randint(1, 100)):
         self.random_num = random_num
@@ -67,7 +67,7 @@ def guessing(bot, update, args):
     object_num = arr()
     object_num.checking(input_num)
 
-
+"""
 def convert(bot, update, args):
     try:
         dollars = int(args[0])
@@ -94,7 +94,7 @@ def main():
     dp.add_handler(CommandHandler("help", help))  # Отвечает на команду /help в Телеграм
     dp.add_handler(CommandHandler("convert", convert, pass_args=True))
     dp.add_handler(CallbackQueryHandler(button))
-    dp.add_handler(CommandHandler("guessing", guessing, pass_args=True))
+    #dp.add_handler(CommandHandler("guessing", guessing, pass_args=True))
 
     # Для ответа бота на текстовые (не командные) сообщения.
     #dp.add_handler(MessageHandler(Filters.text, echo))  # Бот отвечает тем сообщением, которое вы ему написали (эхо-бот)
